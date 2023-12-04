@@ -5,6 +5,8 @@
  */
 
 
+//Filtering always returns an Array
+
 // Simple Filtering
 const people = [
   {
@@ -21,7 +23,13 @@ const people = [
   },
 ];
 
+const oldEnough = people.filter(person => person.age >= 21);
+//console.log(oldEnough)
 
+const byName = people.filter(person => person.name === "Michael")[0];
+//console.log(byName)
+
+// Best practice for complex filtering, is to define callback function externally, and pass it into the .filter() method
 // Complex Filtering
 const students = [
   {
@@ -55,3 +63,15 @@ const students = [
     ]
   },
 ];
+
+//callback function(s) defined externally
+const fiveYearsExperience = skill => skill.yrsExperience >= 5;
+const checkExperience = student =>student.skills.filter(fiveYearsExperience).length > 0;
+
+//callback function passed into .filter() method
+const candidates = students.filter(checkExperience).map(student => student.name)
+console.log(`The following students have the right experience:
+ ${candidates}`)
+
+
+
